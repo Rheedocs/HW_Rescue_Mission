@@ -23,9 +23,10 @@ public class ShipState {
     public String getCaptainName() { return captainName; }
     public String getShipName() { return shipName; }
 
-    public void addFuel(int delta) { fuel += delta; }
-    public void addIntegrity(int delta) { integrity += delta; }
-    public void addSpareParts(int delta) { spareParts += delta; }
-    public void setShieldLevel(int level) { shieldLevel = level; }
+    public void addFuel(int delta) { fuel = Math.max(0, fuel + delta); }
+    public void addIntegrity(int delta) { integrity = Math.max(0, integrity + delta); }
+    public void addSpareParts(int delta) { spareParts = Math.max(0, spareParts + delta); }
+
+    public void setShieldLevel(int level) { shieldLevel = Math.max(0, level); }
     public void setRepairKitUsed(boolean used) { repairKitUsed = used; }
 }

@@ -28,4 +28,12 @@ public class ConsoleIO {
             System.out.println("FEJL: Vælg et tal mellem " + min + " og " + max + ".");
         }
     }
+
+    public void pause() {
+        System.out.println();
+        System.out.println(">>> Navigationssystemet afventer din kommando...");
+        System.out.print(">>> Tryk ENTER for at fortsætte rejsen");
+        scanner.nextLine();
+        System.out.println("----------------------------------------");
+    }
 }
