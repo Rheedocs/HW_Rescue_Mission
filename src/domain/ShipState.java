@@ -6,6 +6,8 @@ public class ShipState {
     private int spareParts = 10;
     private int shieldLevel = 0;
     private boolean repairKitUsed = false;
+    private int engineFailures = 0;
+
 
     private final String captainName;
     private final String shipName;
@@ -22,6 +24,7 @@ public class ShipState {
     public boolean isRepairKitUsed() { return repairKitUsed; }
     public String getCaptainName() { return captainName; }
     public String getShipName() { return shipName; }
+    public int getEngineFailures(){return engineFailures;}
 
     public void addFuel(int delta) { fuel = Math.max(0, fuel + delta); }
     public void addIntegrity(int delta) { integrity = Math.max(0, integrity + delta); }
@@ -29,4 +32,7 @@ public class ShipState {
 
     public void setShieldLevel(int level) { shieldLevel = Math.max(0, level); }
     public void setRepairKitUsed(boolean used) { repairKitUsed = used; }
+    public void resetEngineFailures() { engineFailures = 0; }
+    public void addEngineFailure() { engineFailures++; }
+
 }
