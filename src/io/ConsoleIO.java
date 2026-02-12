@@ -6,8 +6,14 @@ public class ConsoleIO {
     private final Scanner scanner = new Scanner(System.in);
 
     public String readString(String prompt) {
-        System.out.print(prompt);
-        return scanner.nextLine();
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return scanner.nextLine();
+            } catch (NumberFormatException e) {
+                System.out.println("FEJL: Skriv et tal.");
+            }
+        }
     }
 
     public int readInt(String prompt) {
