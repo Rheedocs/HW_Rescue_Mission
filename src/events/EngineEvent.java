@@ -66,7 +66,6 @@ public class EngineEvent {
                 if (choice == 2) {
                     if (success) {
                         System.out.println("Motoren starter korrekt!");
-                        System.out.println("Motoren er nu igang igen!");
                         state.resetEngineFailures();
                         log.add("Event 3: Motor genstartet succesfuldt");
                         resolved = true;
@@ -85,7 +84,12 @@ public class EngineEvent {
             } catch (CriticalStatusException e) {
                 throw new CriticalStatusException(e.getMessage());
             } finally {
-                log.add("Forsøger at genstarte...");
+                if (success){
+                    System.out.println("Motoren er nu igang igen!");
+                } else {
+                    System.out.println("Forsøger at genstarte...");
+                }
+
                 }
 
             }
