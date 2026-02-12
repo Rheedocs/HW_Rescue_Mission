@@ -29,17 +29,17 @@ public class Game {
 
             printer.printStatus(state);
 
-            new StormEvent().run(state, log, io);
-            rules.checkCriticalStatus(state);
-            printer.printStatus(state);
-            printer.printLastLogLine(log);
-            io.pause();
-
-            new TradeEvent().run(state, log, io);
-            rules.checkCriticalStatus(state);
-            printer.printStatus(state);
-            printer.printLastLogLine(log);
-            io.pause();
+//            new StormEvent().run(state, log, io);
+//            rules.checkCriticalStatus(state);
+//            printer.printStatus(state);
+//            printer.printLastLogLine(log);
+//            io.pause();
+//
+//            new TradeEvent().run(state, log, io);
+//            rules.checkCriticalStatus(state);
+//            printer.printStatus(state);
+//            printer.printLastLogLine(log);
+//            io.pause();
 
             new EngineEvent().run(state, log, io);
             rules.checkCriticalStatus(state);
