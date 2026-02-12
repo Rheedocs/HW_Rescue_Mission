@@ -14,7 +14,7 @@ public class EngineEvent {
     private final Random random = new Random();
 
     public void run(ShipState state, GameLog log, ConsoleIO io) throws CriticalStatusException {
-        System.out.println("EVENT – ENGINE");
+        System.out.println("EVENT 3 – DEFEKT MOTOR");
         System.out.println("Motoren begynder at lyde ustabil...");
         System.out.println();
 

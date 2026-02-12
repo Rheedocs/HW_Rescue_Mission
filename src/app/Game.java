@@ -6,7 +6,7 @@ import events.EngineEvent;
 import events.StormEvent;
 import events.TradeEvent;
 import exceptions.CriticalStatusException;
-import exceptions.InvalidTradeException;
+
 import io.ConsoleIO;
 import io.Printer;
 import service.GameRules;
@@ -52,10 +52,6 @@ public class Game {
         } catch (CriticalStatusException e) {
             System.out.println("GAME OVER: " + e.getMessage());
             log.add("GAME OVER: " + e.getMessage());
-
-        } catch (InvalidTradeException e) {
-            System.out.println("FEJL: " + e.getMessage());
-            log.add("Trade-fejl: " + e.getMessage());
 
         } catch (Exception e) {
             System.out.println("FEJL: Noget gik galt, men spillet crasher ikke.");
