@@ -5,8 +5,6 @@ import domain.ShipState;
 import exceptions.CriticalStatusException;
 import exceptions.InvalidTradeException;
 import io.ConsoleIO;
-import io.Printer;
-import service.GameRules;
 
 public class TradeEvent {
 
