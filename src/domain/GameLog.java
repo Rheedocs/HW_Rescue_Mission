@@ -9,3 +9,6 @@ public class GameLog {
     public void add(String line) { lines.add(line); }
     public List<String> all() { return lines; }
 }
+
+
+

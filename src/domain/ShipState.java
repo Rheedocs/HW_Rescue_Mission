@@ -28,4 +28,9 @@ public class ShipState {
     public void addSpareParts(int delta) { spareParts += delta; }
     public void setShieldLevel(int level) { shieldLevel = level; }
     public void setRepairKitUsed(boolean used) { repairKitUsed = used; }
-}
+    public void setFuel(int fuel) {this.fuel = fuel; }
+    public void setIntegrity(int integrity) {this.integrity = fuel; }
+
+
+    }
+
