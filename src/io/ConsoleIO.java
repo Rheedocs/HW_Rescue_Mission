@@ -10,8 +10,8 @@ public class ConsoleIO {
             try {
                 System.out.print(prompt);
                 return scanner.nextLine();
-            } catch (NumberFormatException e) {
-                System.out.println("FEJL: Skriv et tal.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("FEJL: Skriv Y/N");
             }
         }
     }

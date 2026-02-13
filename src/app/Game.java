@@ -14,6 +14,7 @@ import service.GameRules;
 public class Game {
 
     public void run() {
+
         ConsoleIO io = new ConsoleIO();
         Printer printer = new Printer();
         GameLog log = new GameLog();
@@ -59,6 +60,8 @@ public class Game {
 
         } finally {
             printer.printLog(log);
+            }
+
         }
+
     }
-}
