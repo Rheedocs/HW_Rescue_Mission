@@ -17,7 +17,7 @@ public class Game {
 
     public void start() {
         while (true) {
-            run(); // spiller én mission
+            run(); // spiller en mission
 
             System.out.println();
             System.out.println("1) Spil igen");

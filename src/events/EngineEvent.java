@@ -3,81 +3,81 @@ package events;
 import domain.GameLog;
 import domain.ShipState;
 import exceptions.CriticalStatusException;
-import exceptions.InvalidTradeException;
 import io.ConsoleIO;
-import io.Printer;
 
 import java.util.Random;
 
 public class EngineEvent {
-    private static int REPAIR_BONUS = 20;
-    private boolean resolved = false;
+    private static final int REPAIR_BONUS = 20;
+    private static final int RESTART_FAIL_DAMAGE = 15;
 
+    private boolean resolved = false;
 
     private final Random random = new Random();
 
-    public void run(ShipState state, GameLog log, ConsoleIO io) throws CriticalStatusException, InvalidTradeException {
+    public void run(ShipState state, GameLog log, ConsoleIO io) throws CriticalStatusException {
 
         while (!resolved) {
-            System.out.println("EVENT – ENGINE");
+            System.out.println("----------------------------------------");
+            System.out.println("EVENT 3 – MOTOR FEJL");
             System.out.println("Motoren begynder at lyde ustabil...");
 
             // Viser muligheder, og når playeren har brugt repair-kittet, så kan playeren kun ignorer rumlen, da han ikke har et repair kit længere.
             if (!state.isRepairKitUsed()) {
-                System.out.println("1. Brug repair kit?");
-                System.out.println("2. Ignorér rumlen?");
+                System.out.println("1) Brug repair kit");
+                System.out.println("2) Forsøg genstart");
             } else {
                 System.out.println("Kan ikke længere fikse motoren. Repair kit brugt!");
-                System.out.println("2. Ignorér rumlen?");
+                System.out.println("2) Forsøg genstart");
             }
-
 
             int choice = io.readChoice("> ", 1, 2);
 
-            // Regner success chance efter playeren har valgt enten valg 1 eller valg 2.
-            boolean success = Math.random() < 0.4;
+            // Hvis spilleren prøver at bruge repair kit igen, håndter pænt med besked (ingen exception)
+            if (choice == 1 && state.isRepairKitUsed()) {
+                System.out.println("----------------------------------------");
+                System.out.println("Repair kit er allerede brugt tidligere");
+                System.out.println("----------------------------------------");
+                log.add("Event 3: Repair kit var allerede brugt");
+                continue; // Bliv i eventet så spilleren kan vælge (2) bagefter
+            }
 
+            // Hvis spilleren bruger repair kit første gang, så giv bonus og gå direkte videre til genstart i samme event (uden at printe event-header igen)
             if (choice == 1) {
-                if (state.isRepairKitUsed()) {
-                    System.out.println("Repair kit er allerede brugt tidligere");
-                    log.add("Event 3: Repair kit mislykkedes!");
-                    resolved = true;
-                }
-
-                System.out.println("Du forsøger at reparere motoren...");
-
+                System.out.println("----------------------------------------");
+                System.out.println("Du bruger repair kit...");
                 state.setRepairKitUsed(true);
 
-                if (success) {
-                    System.out.println("Repair kit brugt! (+20) integritet.");
-                    state.addIntegrity(REPAIR_BONUS);
-                    state.setRepairKitUsed(true);
-                    state.resetEngineFailures();
-                    log.add("Event 3: Motor repareret (+20) " + "integrity -> " + state.getIntegrity());
+                // Repair kit kan bruges én gang i hele spillet og giver +20 integrity og logges
+                System.out.println("Repair kit brugt! (+" + REPAIR_BONUS + ") integritet.");
+                state.addIntegrity(REPAIR_BONUS);
+                state.resetEngineFailures();
+                log.add("Event 3: Repair kit brugt (+" + REPAIR_BONUS + ") integrity -> " + state.getIntegrity());
+                System.out.println("----------------------------------------");
 
-                    resolved = true;
-                } else {
-                    System.out.println("Repair kit mislykkedes... Motoren rumler stadig. (-10) integrity");
-                    state.addEngineFailure();
-                    state.addIntegrity(-10);
-                    log.add("Event 3: Reparation mislykkedes (-10) integrity");
-                }
-                continue;
+                // Efter repair kit går vi direkte til genstartforsøget i samme loop
+                choice = 2;
             }
+
+            // Regner success chance efter playeren har valgt genstart (valg 2).
+            boolean success = random.nextDouble() < 0.4;
 
             try {
                 if (choice == 2) {
                     if (success) {
+                        System.out.println("----------------------------------------");
                         System.out.println("Motoren starter korrekt!");
+                        System.out.println("----------------------------------------");
                         state.resetEngineFailures();
                         log.add("Event 3: Motor genstartet succesfuldt");
                         resolved = true;
-                        break;
                     } else {
-                        System.out.println("Genstart mislykkedes! -10 integritet");
-                        state.addIntegrity(-10);
+                        System.out.println("----------------------------------------");
+                        System.out.println("Genstart mislykkedes! -" + RESTART_FAIL_DAMAGE + " integritet");
+                        System.out.println("----------------------------------------");
+                        state.addIntegrity(-RESTART_FAIL_DAMAGE);
                         state.addEngineFailure();
-                        log.add("Event 3: Motor genstart fejlede (-10) integritet");
+                        log.add("Event 3: Motor genstart fejlede (-" + RESTART_FAIL_DAMAGE + ") integritet");
 
                         if (state.getEngineFailures() >= 2) {
                             throw new CriticalStatusException("Motoren er permanent ødelagt efter to fejl i træk!");
@@ -87,22 +87,9 @@ public class EngineEvent {
             } catch (CriticalStatusException e) {
                 throw new CriticalStatusException(e.getMessage());
             } finally {
-                if (success) {
-                    System.out.println("Motoren er nu igang igen!");
-                } else {
-                    System.out.println("Forsøger at genstarte...");
-                }
-
-                }
-
+                // finally skal altid udskrive Forsøger at genstarte
+                System.out.println("Forsøger at genstarte...");
             }
         }
     }
-
-
-
-
-
-
-
-
+}
