@@ -13,9 +13,27 @@ import service.GameRules;
 
 public class Game {
 
-    public void run() {
+    private final ConsoleIO io = new ConsoleIO();
 
-        ConsoleIO io = new ConsoleIO();
+    public void start() {
+        while (true) {
+            run(); // spiller en mission
+
+            System.out.println();
+            System.out.println("1) Spil igen");
+            System.out.println("2) Afslut");
+            int choice = io.readChoice("> ", 1, 2);
+            System.out.println();
+            System.out.println("----------------------------------------");
+
+            if (choice == 2) {
+                System.out.println("Tak for spillet!");
+                return;
+            }
+        }
+    }
+
+    public void run() {
         Printer printer = new Printer();
         GameLog log = new GameLog();
 
@@ -60,8 +78,6 @@ public class Game {
 
         } finally {
             printer.printLog(log);
-            }
-
         }
-
     }
+}
