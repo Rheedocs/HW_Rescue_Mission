@@ -10,7 +10,9 @@ import io.Printer;
 import java.util.Random;
 
 public class EngineEvent {
-    private static boolean resolved = false;
+    private static int REPAIR_BONUS = 20;
+    private boolean resolved = false;
+
 
     private final Random random = new Random();
 
@@ -29,8 +31,11 @@ public class EngineEvent {
                 System.out.println("2. Ignorér rumlen?");
             }
 
-            boolean success = Math.random() < 0.4;
+
             int choice = io.readChoice("> ", 1, 2);
+
+            // Regner success chance efter playeren har valgt enten valg 1 eller valg 2.
+            boolean success = Math.random() < 0.4;
 
             if (choice == 1) {
                 if (state.isRepairKitUsed()) {
@@ -44,18 +49,18 @@ public class EngineEvent {
                 state.setRepairKitUsed(true);
 
                 if (success) {
-                    System.out.println("Repair kit brugt! +20 integritet.");
-                    state.addIntegrity(20);
+                    System.out.println("Repair kit brugt! (+20) integritet.");
+                    state.addIntegrity(REPAIR_BONUS);
                     state.setRepairKitUsed(true);
                     state.resetEngineFailures();
                     log.add("Event 3: Motor repareret (+20) " + "integrity -> " + state.getIntegrity());
 
                     resolved = true;
                 } else {
-                    System.out.println("Repair kit mislykkedes... Motoren rumler stadig.");
+                    System.out.println("Repair kit mislykkedes... Motoren rumler stadig. (-10) integrity");
                     state.addEngineFailure();
                     state.addIntegrity(-10);
-                    log.add("Event 3: Reparation mislykkedes (-10 integrity)");
+                    log.add("Event 3: Reparation mislykkedes (-10) integrity");
                 }
                 continue;
             }
@@ -64,16 +69,15 @@ public class EngineEvent {
                 if (choice == 2) {
                     if (success) {
                         System.out.println("Motoren starter korrekt!");
-                        System.out.println("Motoren er nu igang igen!");
                         state.resetEngineFailures();
                         log.add("Event 3: Motor genstartet succesfuldt");
                         resolved = true;
                         break;
                     } else {
-                        System.out.println("Genstart mislykkedes! -15 integritet");
-                        state.addIntegrity(-15);
+                        System.out.println("Genstart mislykkedes! -10 integritet");
+                        state.addIntegrity(-10);
                         state.addEngineFailure();
-                        log.add("Event 3: Motor genstart fejlede (-15) integritet");
+                        log.add("Event 3: Motor genstart fejlede (-10) integritet");
 
                         if (state.getEngineFailures() >= 2) {
                             throw new CriticalStatusException("Motoren er permanent ødelagt efter to fejl i træk!");
@@ -83,7 +87,12 @@ public class EngineEvent {
             } catch (CriticalStatusException e) {
                 throw new CriticalStatusException(e.getMessage());
             } finally {
-                log.add("Forsøger at genstarte...");
+                if (success) {
+                    System.out.println("Motoren er nu igang igen!");
+                } else {
+                    System.out.println("Forsøger at genstarte...");
+                }
+
                 }
 
             }

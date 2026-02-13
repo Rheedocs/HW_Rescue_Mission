@@ -1,6 +1,6 @@
 ## Testliste – Rumeventyr Exception Rescue Mission
 
-> Status: Event 1 og Event 2 er implementeret og smoke-testet. Event 3 er under udvikling.
+> Status: Færdig
 
 ---
 
@@ -32,15 +32,13 @@
 
 ---
 
-### Pending – Afventer implementering
+7. Event 3 - Engine
 
-#### Event 3 – Motor og Repair Kit (under udvikling)
-
-* TODO: try / catch / finally flow
-* TODO: Motor restart chance (success/fail)
-* TODO: CriticalStatusException ved to fejl i træk
-* TODO: Repair kit kan kun bruges én gang
-* TODO: Logging af motorforsøg og repair kit
+* try / catch / finally flow hvor finally altid printer (Forsøger at genstarte ved fail eller Motoren er nu igang igen ved success)
+* Motor restart chance (success/fail) med math.random
+* CriticalStatusException ved to engine failures i træk
+* Repair kit kan kun bruges én gang. Muligheden for at vælge repair-kit blive fjernet efter repair kit er brugt.
+* Logging af motorforsøg og repair kit success/fail
 
 ---
 
