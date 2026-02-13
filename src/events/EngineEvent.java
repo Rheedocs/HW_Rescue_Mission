@@ -12,7 +12,6 @@ import java.util.Random;
 public class EngineEvent {
     private static boolean resolved = false;
 
-
     private final Random random = new Random();
 
     public void run(ShipState state, GameLog log, ConsoleIO io) throws CriticalStatusException, InvalidTradeException {
@@ -29,7 +28,6 @@ public class EngineEvent {
                 System.out.println("Kan ikke længere fikse motoren. Repair kit brugt!");
                 System.out.println("2. Ignorér rumlen?");
             }
-
 
             boolean success = Math.random() < 0.4;
             int choice = io.readChoice("> ", 1, 2);
