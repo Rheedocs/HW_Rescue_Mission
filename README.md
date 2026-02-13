@@ -28,18 +28,16 @@
     * Logging af trade og shield
     * Fejl håndteres uden crash og menu gentages
 
-6. EVENT LOG printes altid til sidst (også ved fejl)
-
----
-
-7. Event 3 - Engine
+6. Event 3 - Engine
 
    * try / catch / finally flow hvor finally altid printer (Forsøger at genstarte ved fail eller Motoren er nu igang igen ved success)
    * Motor restart chance (success/fail) med math.random
    * CriticalStatusException ved to engine failures i træk
    * Repair kit kan kun bruges én gang. Muligheden for at vælge repair-kit blive fjernet efter repair kit er brugt.
    * Logging af motorforsøg og repair kit success/fail
-
+     
+7. EVENT LOG printes altid til sidst (også ved fejl)
+   
 ---
 
 ### Planlagte tests (når events er færdige)
