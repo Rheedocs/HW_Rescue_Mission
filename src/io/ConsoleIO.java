@@ -5,20 +5,25 @@ import java.util.Scanner;
 public class ConsoleIO {
     private final Scanner scanner = new Scanner(System.in);
 
-    public String readString(String prompt) {
+    public String readNonEmptyString(String prompt) {
         while (true) {
-            try {
-                System.out.print(prompt);
-                return scanner.nextLine();
-            } catch (IllegalArgumentException e) {
-                System.out.println("FEJL: Skriv Y/N");
-            }
+            System.out.print(prompt);
+            String s = scanner.nextLine().trim();
+            if (!s.isEmpty()) return s;
+            System.out.println("FEJL: Feltet må ikke være tomt.");
         }
     }
 
     public int readInt(String prompt) {
         while (true) {
-            String s = readString(prompt).trim();
+            System.out.print(prompt);
+            String s = scanner.nextLine().trim();
+
+            if (s.isEmpty()) {
+                System.out.println("FEJL: Skriv et tal.");
+                continue;
+            }
+
             try {
                 return Integer.parseInt(s);
             } catch (NumberFormatException e) {
@@ -42,4 +47,12 @@ public class ConsoleIO {
         scanner.nextLine();
         System.out.println("----------------------------------------");
     }
+
+    public void introPause() {
+        System.out.println();
+        System.out.println(">>> System online. Tryk ENTER for at initialisere mission...");
+        scanner.nextLine();
+        System.out.println("----------------------------------------");
+    }
+
 }

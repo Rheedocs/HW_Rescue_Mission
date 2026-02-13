@@ -37,8 +37,11 @@ public class Game {
         Printer printer = new Printer();
         GameLog log = new GameLog();
 
-        String captain = io.readString("Indtast dit navn: ");
-        String ship = io.readString("Indtast navnet på dit rumskib: ");
+        printer.printIntro();
+        io.introPause();
+
+        String captain = io.readNonEmptyString("Indtast dit navn: ");
+        String ship = io.readNonEmptyString("Indtast navnet på dit rumskib: ");
         ShipState state = new ShipState(captain, ship);
 
         log.add("Start: Kaptajn " + captain + " på " + ship);
