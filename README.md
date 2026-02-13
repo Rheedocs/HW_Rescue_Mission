@@ -34,11 +34,11 @@
 
 7. Event 3 - Engine
 
-* try / catch / finally flow hvor finally altid printer (Forsøger at genstarte ved fail eller Motoren er nu igang igen ved success)
-* Motor restart chance (success/fail) med math.random
-* CriticalStatusException ved to engine failures i træk
-* Repair kit kan kun bruges én gang. Muligheden for at vælge repair-kit blive fjernet efter repair kit er brugt.
-* Logging af motorforsøg og repair kit success/fail
+   * try / catch / finally flow hvor finally altid printer (Forsøger at genstarte ved fail eller Motoren er nu igang igen ved success)
+   * Motor restart chance (success/fail) med math.random
+   * CriticalStatusException ved to engine failures i træk
+   * Repair kit kan kun bruges én gang. Muligheden for at vælge repair-kit blive fjernet efter repair kit er brugt.
+   * Logging af motorforsøg og repair kit success/fail
 
 ---
 
